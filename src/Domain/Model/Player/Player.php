@@ -1,6 +1,10 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Domain\Model\Player;
+
+use App\Domain\Model\Player\ValueObject\Rol\Rol;
+use JsonSerializable;
 
 final class Player implements JsonSerializable
 {

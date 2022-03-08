@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Domain\Model\Player\ValueObject\Rol;
+
 enum Rol: string
 {
 case base = 'BASE';
