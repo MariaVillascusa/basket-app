@@ -6,26 +6,24 @@ namespace App\Tests;
 use App\Domain\Model\Player\Player;
 
 use App\Domain\Model\Player\ValueObject\Rol\Rol;
-use phpDocumentor\Reflection\Types\Integer;
-use phpDocumentor\Reflection\Types\String_;
 use PHPUnit\Framework\TestCase;
 
 
 class PlayerTest extends TestCase
 {
-    private $playerNumber;
-    private $name;
+    private int $playerNumber;
+    private string $name;
     private Rol $rol;
-    private $average;
+    private int $average;
 
     protected function  setUp(): void
     {
         parent::setUp();
 
-        $this->playerNumber = $this->createMock(Integer::class);
-            $this->name = $this->createMock(String_::class);
+        $this->playerNumber = 8;
+            $this->name = 'Martínez';
             $this->rol = Rol::base;
-            $this->average = $this->createMock(Integer::class);
+            $this->average = 9;
     }
 
     public function test_create_player()

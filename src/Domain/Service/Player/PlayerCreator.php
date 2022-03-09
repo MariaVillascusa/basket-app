@@ -1,9 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Application\CreatePlayer;
+namespace App\Domain\Service\Player;
 
-final class CreatePlayer
+use App\Domain\Model\Player\Player;
+use App\Domain\Model\Player\PlayerRepository;
+use App\Domain\Model\Player\ValueObject\Rol\Rol;
+
+final class PlayerCreator
 {
     private PlayerRepository $playerRepository;
 
@@ -20,5 +24,6 @@ final class CreatePlayer
 
         return $player;
     }
+
 
 }

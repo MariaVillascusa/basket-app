@@ -8,10 +8,10 @@ use JsonSerializable;
 
 final class Player implements JsonSerializable
 {
-    private $playerNumber;
-    private $name;
+    private int $playerNumber;
+    private string $name;
     private Rol $rol;
-    private $average;
+    private int $average;
 
     private function __construct($playerNumber, $name, $rol, $average)
     {
@@ -27,22 +27,22 @@ final class Player implements JsonSerializable
     }
 
 
-    public function playerNumber()
+    public function playerNumber(): int
     {
         return $this->playerNumber;
     }
 
-    public function name()
+    public function name(): string
     {
         return $this->name;
     }
 
-    public function rol()
+    public function rol(): Rol
     {
         return $this->rol;
     }
 
-    public function average()
+    public function average(): int
     {
         return $this->average;
     }
@@ -53,7 +53,7 @@ final class Player implements JsonSerializable
     }
 
 
-    public function jsonSerialize(): mixed
+    public function jsonSerialize(): array
     {
         return [
             'playerNumber'=> $this->playerNumber(),
