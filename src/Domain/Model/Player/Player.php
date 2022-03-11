@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Model\Player;
 
+use App\Domain\Model\Player\ValueObject\Average\Average;
 use App\Domain\Model\Player\ValueObject\Role\Role;
 use Error;
 use JsonSerializable;
@@ -12,7 +13,7 @@ final class Player implements JsonSerializable
     private int $playerNumber;
     private string $name;
     private Role $role;
-    private int $average;
+    private Average $average;
 
     private function __construct($playerNumber, $name, $role, $average)
     {
@@ -22,17 +23,14 @@ final class Player implements JsonSerializable
         $this->average = $average;
     }
 
+
     public static function create($playerNumber, $name, $role, $average): Player
     {
         $createdRole = self::validateRole($role);
-        return new Player($playerNumber, $name, $createdRole, $average);
+        $createdAverage = new Average($average);
+        return new Player($playerNumber, $name, $createdRole, $createdAverage);
     }
 
-    /**
-     * @param $role
-     * @return role
-     * @throws Error
-     */
     public static function validateRole($role): Role
     {
         $createdRole = role::tryFrom(strtoupper($role));
@@ -59,7 +57,7 @@ final class Player implements JsonSerializable
         return $this->role;
     }
 
-    public function average(): int
+    public function average(): Average
     {
         return $this->average;
     }
@@ -75,8 +73,8 @@ final class Player implements JsonSerializable
         return [
             'playerNumber' => $this->playerNumber(),
             'name' => $this->name(),
-            'role' => $this->role(),
-            'average' => $this->average()
+            'role' => $this->role()->value,
+            'average' => $this->average()->value()
         ];
     }
 }

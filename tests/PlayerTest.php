@@ -21,7 +21,7 @@ class PlayerTest extends TestCase
         $this->playerNumber = 8;
             $this->name = 'Martínez';
             $this->role = 'BASE';
-            $this->average = 9;
+            $this->average = 100;
     }
 
     public function test_create_player()
@@ -44,10 +44,10 @@ class PlayerTest extends TestCase
             $this->role,
             $this->average,
         );
-
+echo($player->average()->value());
         self::assertEquals($this->playerNumber, $player->playerNumber());
         self::assertEquals($this->name, $player->name());
         self::assertEquals($this->role, $player->role()->value);
-        self::assertEquals($this->average, $player->average());
+        self::assertEquals($this->average, $player->average()->value());
     }
 }
