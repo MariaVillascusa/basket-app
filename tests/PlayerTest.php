@@ -4,8 +4,6 @@ namespace App\Tests;
 
 
 use App\Domain\Model\Player\Player;
-
-use App\Domain\Model\Player\ValueObject\Rol\Rol;
 use PHPUnit\Framework\TestCase;
 
 
@@ -13,7 +11,7 @@ class PlayerTest extends TestCase
 {
     private int $playerNumber;
     private string $name;
-    private Rol $rol;
+    private string $role;
     private int $average;
 
     protected function  setUp(): void
@@ -22,7 +20,7 @@ class PlayerTest extends TestCase
 
         $this->playerNumber = 8;
             $this->name = 'Martínez';
-            $this->rol = Rol::base;
+            $this->role = 'BASE';
             $this->average = 9;
     }
 
@@ -31,7 +29,7 @@ class PlayerTest extends TestCase
         $player = Player::create(
             $this->playerNumber,
             $this->name,
-            $this->rol,
+            $this->role,
             $this->average,
         );
 
@@ -43,13 +41,13 @@ class PlayerTest extends TestCase
         $player = Player::create(
             $this->playerNumber,
             $this->name,
-            $this->rol,
+            $this->role,
             $this->average,
         );
 
         self::assertEquals($this->playerNumber, $player->playerNumber());
         self::assertEquals($this->name, $player->name());
-        self::assertEquals($this->rol, $player->rol());
+        self::assertEquals($this->role, $player->role()->value);
         self::assertEquals($this->average, $player->average());
     }
 }

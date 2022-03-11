@@ -5,5 +5,9 @@ namespace App\System;
 
 abstract class Command
 {
+    public function messageName(): string
+    {
+        return $this::COMPANY . $this::PROJECT . $this::VERSION . $this::TYPE . $this::MODEL . $this::NAME;
 
+    }
 }

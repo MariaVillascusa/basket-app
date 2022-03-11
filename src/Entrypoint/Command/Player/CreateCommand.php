@@ -3,28 +3,26 @@ declare(strict_types=1);
 
 namespace App\Entrypoint\Command\Player;
 
-use App\Application\Player\Create\CreatePlayerCommand;
-use App\Application\Player\Create\CreatePlayerHandler;
+use App\Application\Command\Player\Create\CreatePlayerCommand;
+use App\Application\Command\Player\Create\CreatePlayerHandler;
 use App\Domain\Model\Player\ValueObject\Rol\Rol;
 use App\Domain\Service\Player\PlayerCreator;
 use App\Infrastructure\Files\PlayerRepository;
-use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
 
 final class CreateCommand extends Command
 {
     protected function configure()
     {
-        $this->setName('create')
+        $this->setName('create:player')
             ->setDescription('Create a player')
-            ->setHelp('You can create a player with number, name, rol and average')
+            ->setHelp('You can create a player with number, name, role and average')
             ->addArgument('playerNumber', InputArgument::REQUIRED, 'Pass the playerNumber.')
             ->addArgument('name', InputArgument::REQUIRED, 'Pass the name.')
-            ->addArgument('rol', InputArgument::REQUIRED, 'Pass the rol.')
+            ->addArgument('role', InputArgument::REQUIRED, 'Pass the role.')
             ->addArgument('average', InputArgument::REQUIRED, 'Pass the average.');
     }
 
@@ -32,17 +30,21 @@ final class CreateCommand extends Command
     {
         $playerNumber = $input->getArgument('playerNumber');
         $name = $input->getArgument('name');
-        $rol = Rol::getRolName($input->getArgument('rol'));
-
+        $role = $input->getArgument('role');
         $average = $input->getArgument('average');
 
-        $command = CreatePlayerCommand::create((int)$playerNumber, $name, $rol, (int)$average);
+        $command = CreatePlayerCommand::create((int)$playerNumber, $name, $role, (int)$average);
 
         $handler = new CreatePlayerHandler(new PlayerCreator(new PlayerRepository()));
 
         $handler->__invoke($command);
 
-        $output->writeln(sprintf('Creado: jugador %s - %s', $input->getArgument('playerNumber'), $input->getArgument('name')));
+        $output->writeln(sprintf('JUGADOR CREADO' . PHP_EOL . 'num:%s - nombre:%s - rol:%s - med:%s/100',
+            $playerNumber,
+            $name,
+            $role,
+            $average
+        ));
         return Command::SUCCESS;
     }
 }

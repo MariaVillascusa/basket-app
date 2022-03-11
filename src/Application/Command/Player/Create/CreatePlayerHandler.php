@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Application\Player\Create;
+namespace App\Application\Command\Player\Create;
 
 use App\Domain\Service\Player\PlayerCreator;
 
@@ -19,7 +19,7 @@ final class CreatePlayerHandler
         $this->creator->execute(
             $command->playerNumber(),
             $command->name(),
-            $command->rol(),
+            $command->role(),
             $command->average()
         );
     }
