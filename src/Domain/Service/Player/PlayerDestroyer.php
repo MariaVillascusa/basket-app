@@ -15,7 +15,7 @@ final class PlayerDestroyer
         $this->playerRepository = $playerRepository;
     }
 
-    public function execute(int $playerNumber)
+    public function execute(int $playerNumber): Player
     {
         $player = $this->getPlayer($playerNumber);
 

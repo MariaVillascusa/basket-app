@@ -15,7 +15,7 @@ final class Player implements JsonSerializable
     private Role $role;
     private Average $average;
 
-    private function __construct($playerNumber, $name, $role, $average)
+    private function __construct(int $playerNumber, string $name, Role $role, Average $average)
     {
         $this->playerNumber = $playerNumber;
         $this->name = $name;
@@ -24,7 +24,7 @@ final class Player implements JsonSerializable
     }
 
 
-    public static function create($playerNumber, $name, $role, $average): Player
+    public static function create(int $playerNumber, string $name, string $role, int $average): Player
     {
         $createdRole = Role::tryGetFrom($role);
         $createdAverage = new Average($average);

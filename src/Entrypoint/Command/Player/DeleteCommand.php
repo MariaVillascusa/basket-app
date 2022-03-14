@@ -22,7 +22,7 @@ final class DeleteCommand extends Command
             ->addArgument('playerNumber', InputArgument::REQUIRED, 'Pass the playerNumber.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $playerNumber = $input->getArgument('playerNumber');
 
