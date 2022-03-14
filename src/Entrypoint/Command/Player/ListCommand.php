@@ -5,6 +5,7 @@ namespace App\Entrypoint\Command\Player;
 use App\Application\Command\Player\GetPlayersList\GetPlayersListCommand;
 use App\Application\Command\Player\GetPlayersList\GetPlayersListHandler;
 use App\Domain\Service\Player\PlayerList;
+use App\Domain\Service\Player\PlayerOrder;
 use App\Infrastructure\Files\PlayerRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
@@ -23,14 +24,13 @@ class ListCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $order = $input->getOption('order');
+        $filter = $input->getOption('order');
 
         $command = GetPlayersListCommand::create();
 
         $handler = new GetPlayersListHandler(new PlayerList(new PlayerRepository()));
 
-        $players = $handler($command);
-        $players = $handler->orderBy($players, $order);
+        $players = $handler($command, $filter);
 
         $output->writeln('Número' . "\t" . 'Nombre' . "\t" . 'Posición' . "\t" . 'Media');
         $output->writeln($players);

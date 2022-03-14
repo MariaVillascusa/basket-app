@@ -4,6 +4,7 @@ namespace App\Application\Command\Player\GetPlayersList;
 
 use App\Domain\Model\Player\Player;
 use App\Domain\Service\Player\PlayerList;
+use App\Domain\Service\Player\PlayerOrder;
 
 class GetPlayersListHandler
 {
@@ -14,31 +15,16 @@ class GetPlayersListHandler
         $this->list = $list;
     }
 
-    public function __invoke(GetPlayersListCommand $command): array
+    public function __invoke(GetPlayersListCommand $command, null|string $filter): array
     {
-        return $this->list->execute();
+        $players = $this->list->execute();
+
+        return $this->order($players, $filter); // Hacerlo con metodo aparte?
     }
 
-    public function orderBy(array $players, string $filter): array
+    private function order(array $players, ?string $filter): array
     {
-        if (!$filter) {
-            return $players;
-        };
-        uasort($players, $this->apply($filter));
-        return $players;
-    }
-
-    private function apply($filter): \Closure
-    {
-        return match ($filter){
-            'dorsal'=> function ($a, $b) {
-                if ($a == $b) return 0;
-                return ($a < $b) ? -1 : 1;
-            },
-            'media'=> function ($a, $b) {
-                if ($a->average() == $b->average()) return 0;
-                return ($a->average() < $b->average()) ? -1 : 1;
-            },
-        };
+        $ordinator = new PlayerOrder($players);
+        return $ordinator->orderBy($filter);
     }
 }
