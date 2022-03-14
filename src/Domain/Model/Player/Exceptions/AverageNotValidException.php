@@ -2,7 +2,6 @@
 
 namespace App\Domain\Model\Player\Exceptions;
 
-use Throwable;
 
 class AverageNotValidException extends \Exception
 {

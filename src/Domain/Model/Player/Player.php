@@ -26,21 +26,11 @@ final class Player implements JsonSerializable
 
     public static function create($playerNumber, $name, $role, $average): Player
     {
-        $createdRole = self::validateRole($role);
+        $createdRole = Role::tryGetFrom($role);
         $createdAverage = new Average($average);
+
         return new Player($playerNumber, $name, $createdRole, $createdAverage);
     }
-
-    public static function validateRole($role): Role
-    {
-        $createdRole = role::tryFrom(strtoupper($role));
-        if ($createdRole === null) {
-            throw new Error('No existe ese rol.');
-//            throw new \Exception('No existe ese rol');
-        }
-        return $createdRole;
-    }
-
 
     public function playerNumber(): int
     {
@@ -77,4 +67,14 @@ final class Player implements JsonSerializable
             'average' => $this->average()->value()
         ];
     }
+
+    public function __toString(): string
+    {
+        return $this->playerNumber() . "\t" .
+            $this->name() . "\t" .
+            $this->role()->value . "\t\t" .
+            $this->average()->value();
+    }
+
+
 }

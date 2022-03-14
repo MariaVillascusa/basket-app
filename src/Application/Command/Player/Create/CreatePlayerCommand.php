@@ -8,10 +8,6 @@ use App\System\Command;
 
 final class CreatePlayerCommand extends Command
 {
-    protected const COMPANY = 'fpdual';
-    protected const PROJECT = 'basket';
-    protected const VERSION = '1';
-    protected const TYPE = 'command';
     protected const MODEL = 'Player';
     protected const NAME = 'create:player';
 
@@ -33,22 +29,22 @@ final class CreatePlayerCommand extends Command
         return new CreatePlayerCommand($playerNumber, $name, $role, $average);
     }
 
-    public function playerNumber()
+    public function playerNumber(): int
     {
         return $this->playerNumber;
     }
 
-    public function name()
+    public function name(): string
     {
         return $this->name;
     }
 
-    public function role()
+    public function role(): string
     {
         return $this->role;
     }
 
-    public function average()
+    public function average(): int
     {
         return $this->average;
     }

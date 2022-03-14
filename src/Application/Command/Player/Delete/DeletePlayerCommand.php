@@ -7,10 +7,6 @@ use App\System\Command;
 
 final class DeletePlayerCommand extends Command
 {
-    protected const COMPANY = 'fpdual';
-    protected const PROJECT = 'basket';
-    protected const VERSION = '1';
-    protected const TYPE = 'command';
     protected const MODEL = 'Player';
     protected const NAME = 'delete:player';
 

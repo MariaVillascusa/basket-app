@@ -40,7 +40,7 @@ final class PlayerRepository implements \App\Domain\Model\Player\PlayerRepositor
             $player->playerNumber(),
             $player->name(),
             $player->role()->value,
-            $player->average()
+            $player->average()->value()
         ]);
         fclose($file);
     }
@@ -94,6 +94,6 @@ final class PlayerRepository implements \App\Domain\Model\Player\PlayerRepositor
 
     public function findAll(): array
     {
-        return [];
+        return $this->players;
     }
 }
