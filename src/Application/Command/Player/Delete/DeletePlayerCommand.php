@@ -7,6 +7,7 @@ use App\System\Command;
 
 final class DeletePlayerCommand extends Command
 {
+    protected const TYPE = 1;
     protected const MODEL = 'Player';
     protected const NAME = 'delete:player';
 

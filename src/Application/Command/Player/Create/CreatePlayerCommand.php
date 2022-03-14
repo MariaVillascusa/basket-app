@@ -8,6 +8,7 @@ use App\System\Command;
 
 final class CreatePlayerCommand extends Command
 {
+    protected const TYPE = 1;
     protected const MODEL = 'Player';
     protected const NAME = 'create:player';
 
