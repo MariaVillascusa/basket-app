@@ -16,7 +16,7 @@ class ListCommand extends Command
 {
     protected function configure()
     {
-        $this->setName('list:player')
+        $this->setName('list')
             ->setDescription('Get the players list')
             ->setHelp('You can obtain the list with all players and their data')
             ->addOption('order', 'o', InputOption::VALUE_OPTIONAL, 'Order list columns', false);

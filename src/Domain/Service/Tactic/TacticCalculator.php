@@ -40,34 +40,35 @@ class TacticCalculator
             'Defensa zonal' => Tactic::ZONE_DEFENSE,
             'Ataque' => Tactic::ATTACK
         };
-//TO-DO
     }
 
     private function getLineUpPlayers(array $tactic, array $players): array
     {
-        $orderedPlayersPerPosition = [];
+        $rolesInTactic = [];
+
+        foreach ($tactic as $role) {
+            if (false === array_key_exists($role, $rolesInTactic)) {
+                $rolesInTactic[$role] = 1;
+            } else {
+                ++$rolesInTactic[$role];
+            }
+        }
+
         $lineupPlayers = [];
-
-        for ($i = 0; $i <= count($tactic) - 1; $i++) {
-            foreach ($players as $player) {
-                if ($player->role()->value === $tactic[$i]) {
-                    $orderedPlayersPerPosition[] = $player;
-                }
+        foreach ($players as $player) {
+            if (false === array_key_exists($player->role()->value, $rolesInTactic)) {
+                continue;
+            }
+            if (true === array_key_exists($player->role()->value, $rolesInTactic)) {
+                $lineupPlayers[] = $player;
+                --$rolesInTactic[$player->role()->value];
+            }
+            if ($rolesInTactic[$player->role()->value] <= 0) {
+                unset($rolesInTactic[$player->role()->value]);
             }
         }
-        for ($i = 0; $i < count($tactic) - 1; $i++) {
-            foreach ($orderedPlayersPerPosition as $player) {
-                if ($player->role()->value === $tactic[$i]) {
 
-                    $lineupPlayers[] = $player;
-                    $i++;
-                }
-                if (count($lineupPlayers) === 5) {
-                    return $lineupPlayers;
-                }
-            }
-        }
-        if (count($lineupPlayers) < 5){
+        if (count($lineupPlayers) < 5) {
             throw new \Error('No tienes suficientes jugadores para esta táctica');
         }
         return $lineupPlayers;

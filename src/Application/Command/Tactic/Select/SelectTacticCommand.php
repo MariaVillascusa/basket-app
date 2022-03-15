@@ -7,8 +7,8 @@ use App\System\Command;
 class SelectTacticCommand extends Command
 {
     protected const TYPE = 1;
-    protected const MODEL = 'Tactic';
-    protected const NAME = 'select:tactic';
+    protected const MODEL = 'tactic';
+    protected const NAME = 'select';
 
     public static function create()
     {

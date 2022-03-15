@@ -16,7 +16,7 @@ final class DeleteCommand extends Command
 {
     protected function configure()
     {
-        $this->setName('delete:player')
+        $this->setName('delete')
             ->setDescription('Delete a player')
             ->setHelp('You can delete a player')
             ->addArgument('playerNumber', InputArgument::REQUIRED, 'Pass the playerNumber.');

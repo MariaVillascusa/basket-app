@@ -19,9 +19,9 @@ use Symfony\Component\Console\Question\Question;
 
 class SelectCommand extends \Symfony\Component\Console\Command\Command
 {
-    protected function configure()
+    protected function configure(): void
     {
-        $this->setName('select:tactic')
+        $this->setName('select')
             ->setDescription('Select the team tactic')
             ->setHelp('You can choose the team tactic with the best lineup');
     }

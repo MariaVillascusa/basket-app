@@ -17,7 +17,7 @@ final class CreateCommand extends Command
 {
     protected function configure()
     {
-        $this->setName('create:player')
+        $this->setName('create')
             ->setDescription('Create a player')
             ->setHelp('You can create a player with number, name, role and average')
             ->addArgument('playerNumber', InputArgument::REQUIRED, 'Pass the playerNumber.')

@@ -7,8 +7,8 @@ use App\System\Command;
 class GetPlayersListCommand extends Command
 {
     protected const TYPE = 1;
-    protected const MODEL = 'Player';
-    protected const NAME = 'list:player';
+    protected const MODEL = 'player';
+    protected const NAME = 'list';
 
     public static function create()
     {

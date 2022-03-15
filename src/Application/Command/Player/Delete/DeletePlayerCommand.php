@@ -8,8 +8,8 @@ use App\System\Command;
 final class DeletePlayerCommand extends Command
 {
     protected const TYPE = 1;
-    protected const MODEL = 'Player';
-    protected const NAME = 'delete:player';
+    protected const MODEL = 'player';
+    protected const NAME = 'delete';
 
     private int $playerNumber;
 
