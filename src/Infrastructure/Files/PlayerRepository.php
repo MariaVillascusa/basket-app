@@ -94,6 +94,9 @@ final class PlayerRepository implements \App\Domain\Model\Player\PlayerRepositor
 
     public function findAll(): array
     {
+        if (empty($this->players)) {
+            throw new \Error('No existen jugadores registrados');
+        }
         return $this->players;
     }
 }

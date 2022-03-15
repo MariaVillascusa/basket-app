@@ -28,7 +28,7 @@ class ListCommand extends Command
 
         $command = GetPlayersListCommand::create();
 
-        $handler = new GetPlayersListHandler(new PlayerList(new PlayerRepository()));
+        $handler = new GetPlayersListHandler(new PlayerList(new PlayerRepository()), new PlayerOrder());
 
         $players = $handler($command, $filter);
 
