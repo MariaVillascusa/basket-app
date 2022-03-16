@@ -6,7 +6,7 @@ use App\System\Command;
 
 class SelectTacticCommand extends Command
 {
-    protected const TYPE = 1;
+    protected const VERSION = 1;
     protected const MODEL = 'tactic';
     protected const NAME = 'select';
 
