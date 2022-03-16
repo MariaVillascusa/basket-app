@@ -17,7 +17,7 @@ class PlayerList
     {
         $players = $this->playerRepository->findAll();
 
-        if ($players === null) {
+        if (empty($players)) {
             throw new \Error('No hay ningún jugador registrado');
         }
         return $players;

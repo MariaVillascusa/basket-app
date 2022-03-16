@@ -27,13 +27,9 @@ final class PlayerCreator
         return $player;
     }
 
-    /**
-     * @param int $playerNumber
-     * @return void
-     */
     public function verifyIfPlayerExists(int $playerNumber): void
     {
-        if ($this->playerRepository->findByPlayerNumber($playerNumber)) {
+        if ($this->playerRepository->findByPlayerNumber($playerNumber) !== null) {
             throw new \Error('Ya existe un jugador con ese número');
         }
     }

@@ -16,7 +16,7 @@ class GetPlayersListHandler
         $this->playerOrder = $playerOrder;
     }
 
-    public function __invoke(GetPlayersListCommand $command, null|string $filter): array
+    public function __invoke(GetPlayersListCommand $command, string $filter): array
     {
         $players = $this->list->execute();
 

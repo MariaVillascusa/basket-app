@@ -7,12 +7,11 @@ abstract class Command
 {
     protected const COMPANY = 'fpdual';
     protected const PROJECT = 'basket';
-    protected const VERSION = '1';
     protected const TYPE = 'command';
 
-    public function messageName(): string
+    public static function messageName(): string
     {
-        return $this::COMPANY . $this::PROJECT . $this::VERSION . $this::TYPE . $this::MODEL . $this::NAME;
+        return self::COMPANY .'.'. self::PROJECT .'.'. static::VERSION .'.'. self::TYPE .'.'. static::MODEL .'.'. static::NAME;
 
     }
 }

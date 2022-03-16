@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Basket\Application\Command\Player\Create;
 
+use App\Basket\Domain\Model\Player\Player;
 use App\Basket\Domain\Service\Player\PlayerCreator;
 
 final class CreatePlayerHandler
@@ -14,9 +15,9 @@ final class CreatePlayerHandler
         $this->creator = $creator;
     }
 
-    public function __invoke(CreatePlayerCommand $command): void
+    public function __invoke(CreatePlayerCommand $command): Player
     {
-        $this->creator->execute(
+        return $this->creator->execute(
             $command->playerNumber(),
             $command->name(),
             $command->role(),

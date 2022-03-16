@@ -24,6 +24,7 @@ class PlayerTest extends TestCase
             $this->average = 100;
     }
 
+    /** @test */
     public function given_player_data_when_create_player_then_return_player(): void
     {
         $player = Player::create(
@@ -36,6 +37,7 @@ class PlayerTest extends TestCase
         self::assertInstanceOf(Player::class, $player);
     }
 
+    /** @test */
     public function given_player_data_when_create_player_then_return_properties(): void
     {
         $player = Player::create(

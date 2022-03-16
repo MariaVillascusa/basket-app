@@ -15,19 +15,15 @@ final class PlayerDestroyer
         $this->playerRepository = $playerRepository;
     }
 
-    public function execute(int $playerNumber): Player
+    public function execute(int $playerNumber): int
     {
         $player = $this->getPlayer($playerNumber);
 
-        $this->playerRepository->delete($player);
+        $this->playerRepository->delete($playerNumber);
 
-        return $player;
+        return $player->playerNumber();
     }
 
-    /**
-     * @param int $playerNumber
-     * @return Player
-     */
     public function getPlayer(int $playerNumber): Player
     {
         $player = $this->playerRepository->findByPlayerNumber($playerNumber);

@@ -12,16 +12,17 @@ use PhpParser\Error;
 final class PlayerRepository implements \App\Basket\Domain\Model\Player\PlayerRepository
 {
     private array $players = [];
+    private string $path;
 
-    /**
-     * @throws Exception
-     */
-    public function __construct()
+
+    public function __construct(string $path = '/players.csv')
     {
-        if (file_exists(__DIR__ . '/players.csv') === false) {
+        $this->path = $path;
+
+        if (file_exists(__DIR__ . $this->path) === false) {
             throw new Error('File not found');
         }
-        $file = fopen(__DIR__ . '/players.csv', "r");
+        $file = fopen(__DIR__ . $this->path, 'rb');
 
         while (($data = fgetcsv($file, 1000, ',')) !== false) {
 
@@ -33,7 +34,7 @@ final class PlayerRepository implements \App\Basket\Domain\Model\Player\PlayerRe
 
     public function save(Player $player): void
     {
-        $file = fopen(__DIR__ . '/players.csv', "a");
+        $file = fopen(__DIR__ . $this->path, 'ab');
 
         fputcsv($file, [
             $player->playerNumber(),
@@ -42,23 +43,29 @@ final class PlayerRepository implements \App\Basket\Domain\Model\Player\PlayerRe
             $player->average()->value()
         ]);
         fclose($file);
+
+        $this->players[] = $player;
     }
 
-    public function delete(Player $player): void
+    public function delete(int $playerNumber): void
     {
-        $readFile = file(__DIR__ . '/players.csv');
+        $readFile = file(__DIR__ . $this->path);
         $out = [];
         foreach ($readFile as $linea) {
-            if (substr($linea, 0, 1) != $player->playerNumber()) {
+            $playerLine = explode(',', $linea);
+
+            if ((int)$playerLine[0] !== $playerNumber) {
                 $out[] = substr($linea, 0, -1);
             }
         }
-
-        $file = fopen(__DIR__ . '/players.csv', "w");
+        $file = fopen(__DIR__ . $this->path, 'wb');
         foreach ($out as $linea) {
             fputcsv($file, explode(',', $linea));
         }
         fclose($file);
+
+        $index = array_search($this->findByPlayerNumber($playerNumber), $this->players, true);
+        unset($this->players[$index]);
     }
 
     private function hydrate($data): Player
@@ -93,9 +100,6 @@ final class PlayerRepository implements \App\Basket\Domain\Model\Player\PlayerRe
 
     public function findAll(): array
     {
-        if (empty($this->players)) {
-            throw new \Error('No existen jugadores registrados');
-        }
         return $this->players;
     }
 }

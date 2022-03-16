@@ -4,7 +4,7 @@ namespace App\Basket\Domain\Service\Player;
 
 class PlayerOrder
 {
-    public function order(array $players, null|string $filter): array
+    public function order(array $players, string $filter): array
     {
         if ($filter === '') {
             return $players;
