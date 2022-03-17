@@ -39,7 +39,7 @@ final class TacticCalculatorTest extends TestCase
     }
 
     /** @test */
-    public function given_data_when_execute_then_lineup_players_are_calculated(): void
+    public function given_enough_players_when_execute_then_lineup_players_are_calculated(): void
     {
         $this->repository
             ->expects(self::once())
@@ -55,5 +55,26 @@ final class TacticCalculatorTest extends TestCase
         $result = $list->execute('Defensa');
 
         self::assertSame($this->players, $result);
+    }
+
+    /** @test */
+    public function given_not_enough_players_when_execute_then_lineup_players_throws_error(): void
+    {
+        unset($this->players[0]);
+
+        $this->repository
+            ->expects(self::once())
+            ->method('findAll')
+            ->willReturn($this->players);
+
+        $this->playerOrder
+            ->expects(self::once())
+            ->method('order')
+            ->willReturn($this->players);
+
+        $this->expectError();
+
+        $list = new TacticCalculator($this->repository, $this->playerOrder);
+        $list->execute('Defensa');
     }
 }
